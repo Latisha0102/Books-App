@@ -4,6 +4,14 @@ const app = express()
 //const Restaurant = require("./modules/restrauntModel.module")
 app.use(express.json())
 initializeDatabase()
+ const cors = require("cors")
+
+ const corsOption = {
+    option: "*",
+    credentials: true,
+ }
+ app.use(cors(corsOption))
+ 
 
 const Book = require('./modules/books.module')
 /*
