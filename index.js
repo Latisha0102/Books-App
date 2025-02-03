@@ -127,8 +127,8 @@ async function getAllBooks(){
 app.get("/books",async (req,res) => {
     try{
         const book = await getAllBooks()
-        if(book){
-            res.status(200).json({message: "Books fetched successfully",books : book})
+        if(book.length != 0){
+           res.json(book)
         }else{
             res.status(404).json({message: "Error while fetching"})
         }
