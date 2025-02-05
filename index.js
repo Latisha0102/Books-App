@@ -103,6 +103,28 @@ app.get("/books/author/:authorName", async(req,res)=>{
         res.status(500).json({error: "Failed to fetch book by author"})
     }
 })
+
+async function deleteBook(bookId){
+    try{
+        const deletedBook = await Book.findByIdAndDelete(bookId)
+        return deletedBook
+    }catch(error){
+        console.log("Error occurred while deleting book", error)
+    }
+}
+
+app.delete("/books/:bookId",(req,res)=> {
+    try{
+        const deletedBook = deleteBook(req.params.bookId)
+        if(deletedBook){
+            res.json({message: "Book deleted successfully", book: deletedBook})
+        }else{
+            res.status(404).json({message: "Book not found"})
+        }
+    }catch(error){
+        res.status(500).json({error: "Failed to delete book"})
+    }
+})
 const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
