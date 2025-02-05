@@ -81,6 +81,27 @@ app.get("/books/title/:bookTitle" ,async(req,res) =>{
         res.status(500).json({error: "Failed to fetch book by title"})
     }
 })
+async function getBookByAuthor(bookAuthor){
+    try{
+        const book = await Book.find({author: bookAuthor})
+        return book
+    }catch(error){
+        console.log("Error occurred while fetching book by author", error)
+    }
+}
+
+app.get("/books/author/:authorName", async(req,res)=>{
+    try{
+        const book = await getBookByAuthor(req.params.authorName)
+        if(book){
+            res.json(book)
+        }else{
+            res.status(404).json({message: "Book not found"})
+        }
+    }catch(error){
+        res.status(500).json({error: "Failed to fetch book by author"})
+    }
+})
 const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
