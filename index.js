@@ -7,7 +7,7 @@ app.use(express.json());
 initializeDatabase();
 
 const corsOption = {
-    option: "*",
+    origin: "*",
     credentials: true,
 };
 app.use(cors(corsOption));
