@@ -38,8 +38,8 @@ app.get("/books", async (req, res) => {
 
 async function addBook(book) {
     try {
-        const newBook = await Book.create(book);
-        const saveBook = newBook.save()
+        const newBook = new Book(book);
+        const saveBook = await newBook.save()
         return saveBook;
     } catch (error) {
         console.log(error);
